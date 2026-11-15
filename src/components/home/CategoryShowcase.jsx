@@ -9,7 +9,7 @@ export const CategoryShowcase = () => {
     {
       id: 'women',
       title: 'Women’s Tailoring & Outerwear',
-      subtitle: 'Structured Blazers, Wool Blend Wrap Coats & Silk Suiting (11 Pieces)',
+      subtitle: 'Structured Blazers, Wool Blend Wrap Coats & Silk Suiting (12 Pieces)',
       image: 'https://images.pexels.com/photos/3534454/pexels-photo-3534454.jpeg',
       tag: 'Women’s Atelier',
       span: 'md:col-span-2 md:row-span-2 h-[420px] md:h-[580px]'

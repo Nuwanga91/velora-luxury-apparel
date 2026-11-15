@@ -129,13 +129,13 @@ export const ShopProvider = ({ children }) => {
   // Products
   const [products, setProducts] = useState(() => {
     try {
-      const saved = localStorage.getItem('velora_products_v6');
+      const saved = localStorage.getItem('velora_products_v7');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (
           Array.isArray(parsed) && 
-          parsed.length >= 26 && 
-          parsed.some(p => p.id?.startsWith('vel-wom')) &&
+          parsed.length >= 27 && 
+          parsed.some(p => p.id === 'vel-wom-012') &&
           parsed.some(p => p.id?.startsWith('vel-men'))
         ) {
           return parsed;
@@ -146,7 +146,8 @@ export const ShopProvider = ({ children }) => {
       localStorage.removeItem('velora_products_v3');
       localStorage.removeItem('velora_products_v4');
       localStorage.removeItem('velora_products_v5');
-      localStorage.setItem('velora_products_v6', JSON.stringify(initialProducts));
+      localStorage.removeItem('velora_products_v6');
+      localStorage.setItem('velora_products_v7', JSON.stringify(initialProducts));
     } catch (e) {}
     return initialProducts;
   });

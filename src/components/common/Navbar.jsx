@@ -376,7 +376,7 @@ export const Navbar = () => {
                     currentPage === 'shop' && selectedCategory === 'women' ? 'text-gold font-bold' : ''
                   }`}
                 >
-                  Women’s Collection (11 Pieces)
+                  Women’s Collection (12 Pieces)
                 </button>
                 <button
                   onClick={() => {

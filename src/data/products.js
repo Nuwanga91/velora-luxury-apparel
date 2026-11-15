@@ -319,6 +319,38 @@ export const initialProducts = [
     ],
     tags: ['Leather', 'Handbag', 'Accessories', 'Italian', 'Women']
   },
+  {
+    id: 'vel-wom-012',
+    name: 'Envogue Ladies Night Short-Baby Pink',
+    subtitle: 'Soft & Breathable Lounge Shorts with Elastic Waistband',
+    category: 'women',
+    subcategory: 'Loungewear & Shorts',
+    isNewArrival: true,
+    isBestseller: true,
+    price: 80,
+    originalPrice: 105,
+    rating: 4.9,
+    reviewCount: 38,
+    inStock: true,
+    stockCount: 18,
+    sku: 'VEL-SHT-12',
+    description: 'Soft and breathable lounge shorts in baby pink, featuring an elastic waistband for relaxed nighttime comfort. Crafted from premium organic modal jersey with delicate tonal piping.',
+    material: '95% Organic Micro-Modal, 5% Elastane. Ultra-soft breathable knit.',
+    care: 'Machine wash delicate cold in laundry bag. Lay flat or hang to dry.',
+    fit: 'Relaxed comfortable lounge fit with flexible elasticated drawstring waist.',
+    colors: [
+      { name: 'Baby Pink', hex: '#F8C8DC', bgClass: 'bg-[#F8C8DC]', imageIndex: 0 },
+      { name: 'Chalk Bone', hex: '#EDE8E0', bgClass: 'bg-[#EDE8E0] border border-gray-300', imageIndex: 1 },
+      { name: 'Soft Rose', hex: '#E8A598', bgClass: 'bg-[#E8A598]', imageIndex: 2 }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    images: [
+      'https://images.pexels.com/photos/5690227/pexels-photo-5690227.jpeg',
+      'https://images.pexels.com/photos/36179299/pexels-photo-36179299.jpeg',
+      'https://images.pexels.com/photos/7143216/pexels-photo-7143216.jpeg'
+    ],
+    tags: ['Loungewear', 'Nightwear', 'Shorts', 'Baby Pink', 'Organic Modal', 'Women']
+  },
 
   // ==================== MEN'S APPAREL (FROM SHEET 1) ====================
   {
