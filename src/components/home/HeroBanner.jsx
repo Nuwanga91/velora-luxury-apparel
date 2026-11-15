@@ -67,11 +67,11 @@ export const HeroBanner = () => {
 
   return (
     <div 
-      className="relative min-h-[85vh] lg:min-h-[92vh] bg-noir-950 flex items-center overflow-hidden select-none"
+      className="relative min-h-[85vh] lg:min-h-[92vh] bg-velora-100 flex items-center overflow-hidden select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Background Slides with Smooth Crossfade */}
+      {/* Background Slides: 100% Bright & Clearly Visible with Zero Dark Scrims */}
       <div className="absolute inset-0 z-0">
         {HERO_SLIDES.map((slide, index) => (
           <div
@@ -83,132 +83,133 @@ export const HeroBanner = () => {
             <img
               src={slide.image}
               alt={slide.badge}
-              className={`w-full h-full object-cover object-center transform transition-transform duration-[7000ms] ease-out ${
-                index === currentSlide ? 'scale-105 opacity-60' : 'scale-100 opacity-0'
+              className={`w-full h-full object-cover object-center transform transition-transform duration-[7000ms] ease-out opacity-100 ${
+                index === currentSlide ? 'scale-105' : 'scale-100'
               }`}
             />
           </div>
         ))}
 
-        {/* Multi-layer gradient scrim for maximum text legibility & contrast */}
-        <div className="absolute inset-0 z-20 bg-gradient-to-r from-noir-950/95 via-noir-950/80 to-noir-950/30" />
-        <div className="absolute inset-0 z-20 bg-gradient-to-t from-noir-950 via-noir-950/40 to-noir-950/70" />
-        <div className="absolute inset-0 z-20 bg-black/30" />
+        {/* Subtle, natural gradient at bottom only to keep controls grounded */}
+        <div className="absolute inset-x-0 bottom-0 h-32 z-10 bg-gradient-to-t from-black/25 to-transparent pointer-events-none" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      {/* Content Container */}
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Column: Editorial Headline & Actions */}
-          <div className="lg:col-span-8 text-white space-y-6">
-            {/* Animated Badge with high-contrast glass pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-noir-900/90 backdrop-blur-md border border-gold/40 text-gold text-xs uppercase tracking-widest font-semibold shadow-lg transition-all">
-              <Sparkles className="w-3.5 h-3.5 text-gold shrink-0" />
+          {/* Left Column: Frosted Luxury Atelier Glass Card (Clear, Bright, High-End) */}
+          <div className="lg:col-span-7 xl:col-span-6 bg-white/92 backdrop-blur-md p-7 sm:p-10 rounded-3xl border border-white/60 shadow-2xl text-noir-950 space-y-6 animate-fade-in">
+            
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-velora-100/80 border border-gold/40 text-gold-dark text-xs uppercase tracking-widest font-bold shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-gold-dark shrink-0" />
               <span>{active.badge}</span>
             </div>
 
-            {/* Heading with deep shadow and high contrast */}
-            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal leading-[1.08] tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]">
+            {/* Heading */}
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal leading-[1.12] tracking-tight text-noir-950">
               {active.titlePrefix}<br />
-              <span className="italic font-light text-gold-light">{active.titleItalic}</span> {active.titleSuffix}
+              <span className="italic font-light text-gold-dark">{active.titleItalic}</span> {active.titleSuffix}
             </h1>
 
-            {/* Subtitle with bright white text and subtle shadow */}
-            <p className="text-base sm:text-lg text-white/95 font-normal leading-relaxed max-w-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-gray-800 font-normal leading-relaxed">
               {active.subtitle}
             </p>
 
             {/* CTAs */}
-            <div className="pt-4 flex flex-col sm:flex-row gap-4">
+            <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => navigateTo('shop', active.primaryCta.category)}
-                className="bg-gold hover:bg-gold-light text-noir-950 px-8 py-4 rounded-xl text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 transition-all transform hover:-translate-y-0.5 shadow-2xl"
+                className="bg-noir-950 hover:bg-noir-900 text-white px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2.5 transition-all transform hover:-translate-y-0.5 shadow-lg"
               >
                 <span>{active.primaryCta.label}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-gold" />
               </button>
 
               <button
                 onClick={() => navigateTo('shop', active.secondaryCta.category)}
-                className="bg-noir-900/80 hover:bg-noir-800 text-white backdrop-blur-md border border-white/40 px-8 py-4 rounded-xl text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 transition-all transform hover:-translate-y-0.5 shadow-xl"
+                className="bg-velora-100 hover:bg-velora-200 text-noir-950 border border-gray-300 px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2.5 transition-all shadow-sm"
               >
                 <span>{active.secondaryCta.label}</span>
               </button>
             </div>
 
-            {/* Editorial Highlights Box with Glassmorphism */}
-            <div className="pt-6">
-              <div className="grid grid-cols-3 gap-6 bg-noir-900/80 backdrop-blur-md p-5 rounded-2xl border border-white/15 max-w-lg shadow-2xl">
+            {/* Editorial Highlights Box */}
+            <div className="pt-2 border-t border-gray-200">
+              <div className="grid grid-cols-3 gap-3 bg-velora-50 p-3.5 rounded-2xl border border-velora-200 text-center">
                 <div>
-                  <span className="font-serif text-2xl text-gold font-bold block drop-shadow-sm">100%</span>
-                  <span className="text-[11px] text-gray-200 uppercase tracking-widest font-medium">Traceable Fibers</span>
+                  <span className="font-serif text-xl sm:text-2xl text-gold-dark font-extrabold block">100%</span>
+                  <span className="text-[10px] text-gray-700 uppercase tracking-wider font-bold">Traceable Fibers</span>
                 </div>
                 <div>
-                  <span className="font-serif text-2xl text-white font-bold block drop-shadow-sm">Firenze</span>
-                  <span className="text-[11px] text-gray-200 uppercase tracking-widest font-medium">Italian Ateliers</span>
+                  <span className="font-serif text-xl sm:text-2xl text-noir-950 font-extrabold block">Firenze</span>
+                  <span className="text-[10px] text-gray-700 uppercase tracking-wider font-bold">Italian Ateliers</span>
                 </div>
                 <div>
-                  <span className="font-serif text-2xl text-white font-bold block drop-shadow-sm">Zero</span>
-                  <span className="text-[11px] text-gray-200 uppercase tracking-widest font-medium">Synthetic Waste</span>
+                  <span className="font-serif text-xl sm:text-2xl text-noir-950 font-extrabold block">Zero</span>
+                  <span className="text-[10px] text-gray-700 uppercase tracking-wider font-bold">Synthetic Waste</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Editorial Visual Thumbnails (Desktop Interactive Lookbook) */}
-          <div className="hidden lg:flex lg:col-span-4 flex-col items-end space-y-4">
-            <span className="text-xs uppercase tracking-widest text-gold font-semibold mb-2">
-              Featured Editorial Looks
-            </span>
-            <div className="space-y-3 w-64">
-              {HERO_SLIDES.map((slide, index) => (
-                <div
-                  key={slide.id}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`group flex items-center gap-3 p-2 rounded-xl border cursor-pointer transition-all ${
-                    index === currentSlide
-                      ? 'bg-noir-900/90 border-gold shadow-lg ring-1 ring-gold/40'
-                      : 'bg-noir-900/40 border-white/10 hover:border-white/30 hover:bg-noir-900/70'
-                  }`}
-                >
-                  <img
-                    src={slide.image}
-                    alt={slide.caption}
-                    className="w-14 h-16 object-cover rounded-lg shrink-0"
-                  />
-                  <div className="overflow-hidden">
-                    <span className={`text-[10px] uppercase tracking-wider font-bold block ${
-                      index === currentSlide ? 'text-gold' : 'text-gray-300'
-                    }`}>
-                      {slide.caption}
-                    </span>
-                    <span className="text-xs text-white/80 font-serif line-clamp-1">
-                      {slide.titlePrefix} {slide.titleItalic}
-                    </span>
+          {/* Right Column: Editorial Visual Thumbnails (Bright Frosted Glass Lookbook) */}
+          <div className="hidden lg:flex lg:col-span-5 xl:col-span-6 flex-col items-end space-y-4">
+            <div className="bg-white/85 backdrop-blur-md p-4 rounded-3xl border border-white/60 shadow-xl space-y-3 w-72">
+              <span className="text-[11px] uppercase tracking-widest text-gold-dark font-extrabold block px-1">
+                Featured Editorial Looks
+              </span>
+              <div className="space-y-2.5">
+                {HERO_SLIDES.map((slide, index) => (
+                  <div
+                    key={slide.id}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`group flex items-center gap-3 p-2 rounded-xl border cursor-pointer transition-all ${
+                      index === currentSlide
+                        ? 'bg-white border-gold shadow-md ring-2 ring-gold/40'
+                        : 'bg-white/60 border-gray-200 hover:border-gray-400 hover:bg-white'
+                    }`}
+                  >
+                    <img
+                      src={slide.image}
+                      alt={slide.caption}
+                      className="w-14 h-16 object-cover rounded-lg shrink-0 border border-gray-200"
+                    />
+                    <div className="overflow-hidden">
+                      <span className={`text-[10px] uppercase tracking-wider font-extrabold block ${
+                        index === currentSlide ? 'text-gold-dark' : 'text-gray-700'
+                      }`}>
+                        {slide.caption}
+                      </span>
+                      <span className="text-xs text-noir-950 font-serif font-bold line-clamp-1 mt-0.5">
+                        {slide.titlePrefix} {slide.titleItalic}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
         </div>
       </div>
 
-      {/* Manual Slide Controls */}
+      {/* Manual Slide Controls with Bright Frosted Styling */}
       <div className="absolute bottom-6 left-4 sm:left-8 z-30 flex items-center gap-4">
         {/* Prev / Next Arrows */}
         <div className="flex items-center gap-2">
           <button
             onClick={prevSlide}
-            className="w-10 h-10 rounded-full bg-noir-900/80 hover:bg-gold hover:text-noir-950 text-white backdrop-blur-md border border-white/20 flex items-center justify-center transition-all"
+            className="w-10 h-10 rounded-full bg-white/90 hover:bg-gold text-noir-950 hover:text-noir-950 backdrop-blur-md border border-gray-200 shadow-md flex items-center justify-center transition-all"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={nextSlide}
-            className="w-10 h-10 rounded-full bg-noir-900/80 hover:bg-gold hover:text-noir-950 text-white backdrop-blur-md border border-white/20 flex items-center justify-center transition-all"
+            className="w-10 h-10 rounded-full bg-white/90 hover:bg-gold text-noir-950 hover:text-noir-950 backdrop-blur-md border border-gray-200 shadow-md flex items-center justify-center transition-all"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5" />
@@ -216,22 +217,22 @@ export const HeroBanner = () => {
         </div>
 
         {/* Slide Indicators / Dots */}
-        <div className="flex items-center gap-2 ml-2">
+        <div className="flex items-center gap-2 ml-1">
           {HERO_SLIDES.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`h-2 rounded-full transition-all ${
+              className={`h-2 rounded-full transition-all shadow-sm ${
                 idx === currentSlide
-                  ? 'w-8 bg-gold'
-                  : 'w-2 bg-white/40 hover:bg-white/70'
+                  ? 'w-8 bg-noir-950'
+                  : 'w-2.5 bg-white/80 hover:bg-white border border-gray-300'
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
         </div>
 
-        <span className="text-[11px] font-mono text-gray-400 tracking-wider hidden sm:inline-block ml-2">
+        <span className="text-xs font-mono font-bold text-noir-950 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-md border border-gray-200 shadow-sm hidden sm:inline-block ml-1">
           0{currentSlide + 1} / 0{HERO_SLIDES.length}
         </span>
       </div>
