@@ -10,7 +10,7 @@ export const CategoryShowcase = () => {
       id: 'women',
       title: 'Women’s Tailoring & Outerwear',
       subtitle: 'Structured Blazers, Wool Blend Wrap Coats & Silk Suiting (11 Pieces)',
-      image: 'https://images.pexels.com/photos/10916172/pexels-photo-10916172.jpeg',
+      image: 'https://images.pexels.com/photos/3534454/pexels-photo-3534454.jpeg',
       tag: 'Women’s Atelier',
       span: 'md:col-span-2 md:row-span-2 h-[420px] md:h-[580px]'
     },
@@ -18,7 +18,7 @@ export const CategoryShowcase = () => {
       id: 'men',
       title: 'Men’s Sartorial & Tees',
       subtitle: 'Heavyweight 240 GSM Combed Tees & Athletic Cuts (15 Pieces)',
-      image: 'https://images.pexels.com/photos/15779643/pexels-photo-15779643.jpeg',
+      image: 'https://images.pexels.com/photos/2531089/pexels-photo-2531089.jpeg',
       tag: 'Men’s Collection',
       span: 'md:col-span-1 h-[270px]'
     },
@@ -26,7 +26,7 @@ export const CategoryShowcase = () => {
       id: 'new-arrivals',
       title: 'New Arrivals A/W 26',
       subtitle: 'Wool Blend Wrap Coat & Velvet Slip Dress',
-      image: 'https://images.pexels.com/photos/19169191/pexels-photo-19169191.jpeg',
+      image: 'https://images.pexels.com/photos/37647057/pexels-photo-37647057.jpeg',
       tag: 'Just Released',
       span: 'md:col-span-1 h-[270px]'
     },
@@ -34,7 +34,7 @@ export const CategoryShowcase = () => {
       id: 'accessories',
       title: 'Artisanal Leather Goods',
       subtitle: 'Hand-Burnished Full-Grain Calfskin Handbags',
-      image: 'https://images.pexels.com/photos/32888397/pexels-photo-32888397.jpeg',
+      image: 'https://images.pexels.com/photos/11215098/pexels-photo-11215098.jpeg',
       tag: 'Italian Leather',
       span: 'md:col-span-2 h-[280px]'
     }
