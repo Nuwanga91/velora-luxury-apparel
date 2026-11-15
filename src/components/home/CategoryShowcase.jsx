@@ -18,7 +18,7 @@ export const CategoryShowcase = () => {
       id: 'men',
       title: 'Men’s Sartorial & Tees',
       subtitle: 'Heavyweight 240 GSM Combed Tees & Athletic Cuts (15 Pieces)',
-      image: 'https://images.pexels.com/photos/2531089/pexels-photo-2531089.jpeg',
+      image: 'https://images.pexels.com/photos/11215098/pexels-photo-11215098.jpeg',
       tag: 'Men’s Collection',
       span: 'md:col-span-1 h-[270px]'
     },
@@ -34,7 +34,7 @@ export const CategoryShowcase = () => {
       id: 'accessories',
       title: 'Artisanal Leather Goods',
       subtitle: 'Hand-Burnished Full-Grain Calfskin Handbags',
-      image: 'https://images.pexels.com/photos/11215098/pexels-photo-11215098.jpeg',
+      image: 'https://images.pexels.com/photos/2531089/pexels-photo-2531089.jpeg',
       tag: 'Italian Leather',
       span: 'md:col-span-2 h-[280px]'
     }
