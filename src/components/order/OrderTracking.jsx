@@ -52,7 +52,7 @@ export const OrderTracking = () => {
       <div className="max-w-4xl mx-auto space-y-8">
         
         {/* Header & High-Contrast Search Bar */}
-        <div className="bg-noir-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-white/15">
+        <div className="bg-[#08080A] text-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-white/20" style={{ backgroundColor: '#08080A' }}>
           <span className="text-xs uppercase tracking-[0.25em] text-gold-light font-bold block mb-2">
             Velora Concierge Dispatch
           </span>
@@ -71,7 +71,7 @@ export const OrderTracking = () => {
                 value={inputTrackId}
                 onChange={(e) => setInputTrackId(e.target.value)}
                 placeholder="Enter Consignment ID (e.g. VEL-8821-NY)"
-                className="w-full bg-noir-900 border-2 border-white/30 rounded-xl pl-12 pr-4 py-3.5 text-sm sm:text-base text-white placeholder-gray-400 font-semibold uppercase tracking-widest focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
+                className="w-full bg-[#141418] border-2 border-white/30 rounded-xl pl-12 pr-4 py-3.5 text-sm sm:text-base text-white placeholder-gray-400 font-semibold uppercase tracking-widest focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
                 required
               />
             </div>
@@ -95,10 +95,10 @@ export const OrderTracking = () => {
                   setSearchedOrder(o);
                   setActiveTrackingId(o.id);
                 }}
-                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all border ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border ${
                   searchedOrder?.id === o.id
                     ? 'bg-gold text-noir-950 border-gold shadow-md font-bold'
-                    : 'bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white'
+                    : 'bg-white/10 text-white border-white/30 hover:bg-white/20 hover:text-white'
                 }`}
               >
                 {o.id} &bull; {o.status}
@@ -144,7 +144,7 @@ export const OrderTracking = () => {
                   {/* Progress Line */}
                   <div className="hidden md:block absolute top-5 left-8 right-8 h-1.5 bg-gray-200 z-0" />
                   <div
-                    className="hidden md:block absolute top-5 left-8 h-1.5 bg-noir-950 z-0 transition-all duration-700"
+                    className="hidden md:block absolute top-5 left-8 h-1.5 bg-[#08080A] z-0 transition-all duration-700"
                     style={{
                       width: `${Math.max(0, (currentStatusIndex / (steps.length - 1)) * 90)}%`
                     }}
@@ -163,7 +163,7 @@ export const OrderTracking = () => {
                               isCurrent
                                 ? 'bg-gold text-noir-950 border-gold ring-4 ring-gold/30 font-extrabold text-sm'
                                 : isPast
-                                ? 'bg-noir-950 text-white border-noir-950 font-bold'
+                                ? 'bg-[#08080A] text-white border-[#08080A] font-bold'
                                 : 'bg-gray-100 text-gray-700 border-gray-300 font-bold'
                             }`}
                           >
