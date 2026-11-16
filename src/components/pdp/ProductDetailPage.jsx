@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useShop } from '../../context/ShopContext';
 import { 
   Star, 
@@ -14,7 +14,14 @@ import {
   ShieldCheck, 
   ArrowRight,
   Sparkles,
-  MessageSquare
+  MessageSquare,
+  Maximize2,
+  ZoomIn,
+  ZoomOut,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink
 } from 'lucide-react';
 
 export const ProductDetailPage = () => {
@@ -34,6 +41,8 @@ export const ProductDetailPage = () => {
   const product = products.find((p) => p.id === selectedProductId) || products[0];
 
   const [activeImageIdx, setActiveImageIdx] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxZoomed, setLightboxZoomed] = useState(false);
   const [selectedColor, setSelectedColor] = useState(product.colors[0] || { name: 'Standard' });
   const [selectedSize, setSelectedSize] = useState(product.sizes[0] || 'Standard');
   const [quantity, setQuantity] = useState(1);
@@ -58,6 +67,42 @@ export const ProductDetailPage = () => {
       comment: 'Exceeded every expectation. Arrived in an embossed archival box with custom garment bag and cedar block.'
     }
   ]);
+
+  // Sync state when product changes
+  useEffect(() => {
+    setActiveImageIdx(0);
+    setIsLightboxOpen(false);
+    setLightboxZoomed(false);
+    setSelectedColor(product.colors[0] || { name: 'Standard' });
+    setSelectedSize(product.sizes[0] || 'Standard');
+    setQuantity(1);
+  }, [product.id]);
+
+  // Lock body scroll and handle keyboard navigation when lightbox is open
+  useEffect(() => {
+    if (!isLightboxOpen) {
+      setLightboxZoomed(false);
+      return;
+    }
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsLightboxOpen(false);
+      } else if (e.key === 'ArrowRight' && product.images.length > 1) {
+        setActiveImageIdx((prev) => (prev + 1) % product.images.length);
+        setLightboxZoomed(false);
+      } else if (e.key === 'ArrowLeft' && product.images.length > 1) {
+        setActiveImageIdx((prev) => (prev - 1 + product.images.length) % product.images.length);
+        setLightboxZoomed(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isLightboxOpen, product.images.length]);
 
   const isWishlisted = wishlist.includes(product.id);
 
@@ -139,29 +184,50 @@ export const ProductDetailPage = () => {
             )}
 
             {/* Main Stage Image */}
-            <div className="flex-1 relative aspect-[3/4] rounded-2xl overflow-hidden bg-velora-100 shadow-luxury">
+            <div 
+              onClick={() => setIsLightboxOpen(true)}
+              className="flex-1 relative aspect-[3/4] rounded-2xl overflow-hidden bg-velora-100 shadow-luxury group cursor-zoom-in"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsLightboxOpen(true);
+                }
+              }}
+              title="Click to view full image"
+            >
               <img
                 src={product.images[activeImageIdx] || product.images[0]}
                 alt={product.name}
-                className="w-full h-full object-cover transition-all duration-500"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
 
               {product.isNewArrival && (
-                <div className="absolute top-4 left-4 bg-noir-900 text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
+                <div className="absolute top-4 left-4 bg-noir-900 text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded shadow-md pointer-events-none">
                   New Arrival
                 </div>
               )}
 
               {/* Wishlist Button */}
               <button
-                onClick={() => toggleWishlist(product.id)}
-                className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleWishlist(product.id);
+                }}
+                className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md z-10 ${
                   isWishlisted ? 'bg-red-50 text-red-500 border border-red-200' : 'bg-white/80 backdrop-blur-md text-noir-900 hover:bg-white'
                 }`}
                 aria-label="Wishlist"
               >
                 <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
               </button>
+
+              {/* Click to Expand Floating Badge */}
+              <div className="absolute bottom-4 right-4 bg-noir-950/85 hover:bg-noir-950 text-white backdrop-blur-md px-3.5 py-1.5 rounded-full text-[11px] uppercase tracking-wider font-semibold flex items-center gap-1.5 transition-all shadow-lg border border-white/20 group-hover:scale-105 pointer-events-none">
+                <Maximize2 className="w-3.5 h-3.5 text-gold" />
+                <span>Full Image</span>
+              </div>
             </div>
           </div>
 
@@ -533,6 +599,160 @@ export const ProductDetailPage = () => {
           </div>
         )}
       </div>
+
+      {/* Full-Screen High-Resolution Product Image Lightbox Modal */}
+      {isLightboxOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex flex-col justify-between bg-noir-950/95 backdrop-blur-2xl animate-fade-in text-white select-none"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          {/* Top Header Bar */}
+          <div 
+            className="flex items-center justify-between px-4 sm:px-8 py-4 border-b border-white/10 bg-noir-950/70 backdrop-blur-md z-30"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-xs uppercase tracking-widest text-gold font-bold">
+                Velora Gallery
+              </span>
+              <span className="text-gray-600 hidden sm:inline">•</span>
+              <span className="text-sm font-serif font-normal text-white truncate max-w-xs sm:max-w-md">
+                {product.name}
+              </span>
+              <span className="text-xs text-gray-300 bg-white/10 px-2.5 py-0.5 rounded-full font-mono">
+                {activeImageIdx + 1} / {product.images.length}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Zoom toggle button */}
+              <button
+                onClick={() => setLightboxZoomed((prev) => !prev)}
+                className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-gray-200 hover:text-white transition-all text-xs flex items-center gap-1.5 border border-white/10"
+                title={lightboxZoomed ? "Reset Zoom" : "Zoom 150%"}
+              >
+                {lightboxZoomed ? (
+                  <>
+                    <ZoomOut className="w-4 h-4 text-gold" />
+                    <span className="hidden sm:inline">Fit Screen</span>
+                  </>
+                ) : (
+                  <>
+                    <ZoomIn className="w-4 h-4 text-gold" />
+                    <span className="hidden sm:inline">Zoom 150%</span>
+                  </>
+                )}
+              </button>
+
+              {/* Direct Open High-Res Link */}
+              <a
+                href={product.images[activeImageIdx] || product.images[0]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-gray-200 hover:text-white transition-all text-xs flex items-center gap-1.5 border border-white/10"
+                title="Open original high-res photo in new tab"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Original</span>
+              </a>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setIsLightboxOpen(false)}
+                className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-white transition-all flex items-center gap-1 border border-white/20 hover:scale-105"
+                aria-label="Close full view"
+              >
+                <X className="w-4 h-4" />
+                <span className="text-xs hidden sm:inline uppercase tracking-wider font-semibold">ESC</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Central Stage with Previous / Next Navigation */}
+          <div 
+            className="flex-1 relative flex items-center justify-center p-4 sm:p-8 overflow-hidden"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setIsLightboxOpen(false);
+              }
+            }}
+          >
+            {/* Previous Arrow */}
+            {product.images.length > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveImageIdx((prev) => (prev - 1 + product.images.length) % product.images.length);
+                  setLightboxZoomed(false);
+                }}
+                className="absolute left-3 sm:left-8 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-noir-950/70 hover:bg-noir-900 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 shadow-2xl backdrop-blur-md"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+            )}
+
+            {/* Stage Image with Zoom Capability */}
+            <div 
+              className={`relative max-h-[82vh] max-w-[90vw] transition-transform duration-300 ease-out cursor-pointer flex items-center justify-center ${
+                lightboxZoomed ? 'scale-150 overflow-auto cursor-zoom-out' : 'cursor-zoom-in'
+              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxZoomed((prev) => !prev);
+              }}
+              title={lightboxZoomed ? "Click to reset zoom" : "Click to zoom 150%"}
+            >
+              <img
+                src={product.images[activeImageIdx] || product.images[0]}
+                alt={product.name}
+                className="max-h-[78vh] max-w-[85vw] object-contain rounded-xl shadow-2xl select-none"
+              />
+            </div>
+
+            {/* Next Arrow */}
+            {product.images.length > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveImageIdx((prev) => (prev + 1) % product.images.length);
+                  setLightboxZoomed(false);
+                }}
+                className="absolute right-3 sm:right-8 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-noir-950/70 hover:bg-noir-900 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 shadow-2xl backdrop-blur-md"
+                aria-label="Next photo"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            )}
+          </div>
+
+          {/* Bottom Thumbnails Strip */}
+          {product.images.length > 1 && (
+            <div 
+              className="px-6 py-4 border-t border-white/10 bg-noir-950/70 backdrop-blur-md flex items-center justify-center gap-3 z-30 overflow-x-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {product.images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setActiveImageIdx(idx);
+                    setLightboxZoomed(false);
+                  }}
+                  className={`w-14 h-18 sm:w-16 sm:h-20 rounded-lg overflow-hidden border-2 transition-all shrink-0 ${
+                    activeImageIdx === idx 
+                      ? 'border-gold scale-105 shadow-luxury ring-2 ring-gold/40' 
+                      : 'border-white/20 opacity-60 hover:opacity-100 hover:border-white/60'
+                  }`}
+                  aria-label={`View photo ${idx + 1}`}
+                >
+                  <img src={img} alt={`Angle ${idx + 1}`} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
