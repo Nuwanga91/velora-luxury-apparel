@@ -97,7 +97,7 @@ export const LookbookSection = () => {
                 <img
                   src={activeItem.image}
                   alt={activeItem.title}
-                  className="w-12 h-14 object-cover rounded-md"
+                  className="w-12 h-14 object-cover object-top rounded-md"
                 />
                 <div className="text-left">
                   <h4 className="text-xs font-semibold line-clamp-1">{activeItem.title}</h4>
@@ -129,11 +129,11 @@ export const LookbookSection = () => {
                   {formatPrice(activeItem.price)}
                 </div>
 
-                <div className="aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-noir-900">
+                <div className="aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-noir-900 shadow-inner">
                   <img
                     src={activeItem.image}
                     alt={activeItem.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
                   />
                 </div>
 
