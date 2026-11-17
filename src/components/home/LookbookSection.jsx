@@ -10,17 +10,17 @@ export const LookbookSection = () => {
   const lookbookItems = [
     {
       id: 1,
-      x: '38%',
-      y: '35%',
+      x: '32%',
+      y: '56%',
       productId: 'vel-wom-002',
       title: 'Structured Blazer',
       price: 195,
-      image: 'https://images.pexels.com/photos/10916172/pexels-photo-10916172.jpeg'
+      image: 'https://images.pexels.com/photos/13215302/pexels-photo-13215302.jpeg'
     },
     {
       id: 2,
-      x: '52%',
-      y: '58%',
+      x: '48%',
+      y: '50%',
       productId: 'vel-wom-003',
       title: 'Pleated Midi Skirt',
       price: 115,
@@ -29,7 +29,7 @@ export const LookbookSection = () => {
     {
       id: 3,
       x: '64%',
-      y: '72%',
+      y: '45%',
       productId: 'vel-wom-011',
       title: 'Leather Handbag',
       price: 320,
@@ -62,7 +62,7 @@ export const LookbookSection = () => {
           {/* Main Interactive Hotspot Image */}
           <div className="lg:col-span-8 relative rounded-2xl overflow-hidden aspect-[4/5] sm:aspect-[16/11] bg-noir-900 border border-white/10 shadow-2xl">
             <img
-              src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop"
+              src="https://images.pexels.com/photos/5698851/pexels-photo-5698851.jpeg"
               alt="Velora Lookbook Model"
               className="w-full h-full object-cover object-top"
             />
